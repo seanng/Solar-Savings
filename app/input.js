@@ -5,7 +5,7 @@
   .config(function(uiGmapGoogleMapApiProvider){
     uiGmapGoogleMapApiProvider.configure({
       key: 'AIzaSyDZvMUReoG9Gh5z3shjVLO-MKE6P3nbOoc',
-      libraries: 'places,geometry,visualization'
+      libraries: 'places,geometry,visualization,drawing'
     });
   })
 
@@ -48,7 +48,18 @@
     // uiGmapGoogleMapApi is a promise.
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
+      $scope.drawingManagerOptions = {
 
+        drawingControl: true,
+        drawingControlOptions: {
+          position: maps.ControlPosition.TOP_RIGHT,
+          drawingModes: [
+            maps.drawing.OverlayType.POLYGON
+          ]
+        }
+      };
+
+      $scope.drawingManagerControl = {};
     });
   }
 
