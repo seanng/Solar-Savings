@@ -12,8 +12,6 @@
   .controller('InputCtrl', InputCtrl);
 
   function InputCtrl ($scope, $log, uiGmapGoogleMapApi) {
-    // Google Map Functions
-
     const searchEvents = {
       places_changed: function(searchBox) {
         let place = searchBox.getPlaces();
@@ -26,14 +24,17 @@
             latitude: place[0].geometry.location.lat(),
             longitude: place[0].geometry.location.lng()
           },
-          zoom: 16
+          zoom: 17
         };
       }
     };
 
     $scope.map = {
       center: { latitude: 45, longitude: -73 },
-      zoom: 8
+      zoom: 8,
+      events: function(e) {
+        console.log(e);
+      }
     };
 
     $scope.searchbox = {
@@ -41,25 +42,26 @@
       events: searchEvents
     };
 
-    $scope.options = {
-      scrollwheel: false
-    };
-
     // uiGmapGoogleMapApi is a promise.
     // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
-      $scope.drawingManagerOptions = {
-
-        drawingControl: true,
-        drawingControlOptions: {
-          position: maps.ControlPosition.TOP_RIGHT,
-          drawingModes: [
-            maps.drawing.OverlayType.POLYGON
-          ]
+      // Drawing Manager
+      $scope.drawingManager = {
+        options: {
+          drawingControl: true,
+          drawingControlOptions: {
+            position: maps.ControlPosition.TOP_RIGHT,
+            drawingModes: [maps.drawing.OverlayType.POLYGON]
+          }
+        },
+        control: {},
+        events: {
+          polygoncomplete: function(dm, name, scope, objs) {
+            var polygon = objs[0];
+            var area = maps.geometry.spherical.computeArea(polygon.getPath());
+          }
         }
       };
-
-      $scope.drawingManagerControl = {};
     });
   }
 

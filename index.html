@@ -17,15 +17,27 @@
           center='map.center'
           zoom='map.zoom'
           draggable='true'
-          options='options'>
+          events='map.events'>
+
             <ui-gmap-search-box
               template='searchbox.template'
               events='searchbox.events'>
             </ui-gmap-search-box>
+<!--
+            <ui-gmap-polygon
+              clickable='true'
+              visible='true'
+              editable='true'
+              fill='polygonConfig.fill'
+              events='polygonConfig.events'>
+            </ui-gmap-polygon> -->
+
             <ui-gmap-drawing-manager
-              options='drawingManagerOptions'
-              control='drawingManagerControl'>
+              options='drawingManager.options'
+              control='drawingManager.control'
+              events='drawingManager.events'>
             </ui-gmap-drawing-manager>
+
         </ui-gmap-google-map>
       </div>
       <div class="left-panel-input"></div>
