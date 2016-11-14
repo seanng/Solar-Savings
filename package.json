@@ -1,0 +1,16 @@
+{
+  "name": "aurora-client",
+  "version": "1.0.0",
+  "description": "As solar energy is gaining in popularity, more and more homeowners are interested in going solar. However, whether or not it is worth for someone to go solar depends on many different factors including the roof structure, local weather, utility rates, energy consumption, and incentives. Therefore, it would be interesting to homeowners to have a simple tool that allows them to assess whether or not their house would be a potential fit for going solar.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "angular": "^1.5.8",
+    "angular-google-maps": "^2.4.0",
+    "bootstrap": "^3.3.7"
+  }
+}

@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aurora Client</title>
+  <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css">
+  <link rel="stylesheet" href="styles/app.css">
+</head>
+<body ng-app="aurora">
+  <div class="container-fluid">
+    <div class="col-sm-5 left-panel" ng-controller="InputCtrl as input">
+      <div class="left-panel-map">
+        <script id="searchbox.tpl.html" type="text/ng-template">
+          <input id="searchbox" type="text" placeholder="Search Box">
+        </script>
+        <ui-gmap-google-map
+          center='map.center'
+          zoom='map.zoom'
+          draggable='true'
+          options='options'>
+            <ui-gmap-search-box
+              template='searchbox.template'
+              events='searchbox.events'>
+            </ui-gmap-search-box>
+        </ui-gmap-google-map>
+      </div>
+      <div class="left-panel-input"></div>
+    </div>
+    <div class="col-sm-7 right-panel">
+      <div class="right-panel-performance"></div>
+      <div class="right-panel-financial"></div>
+    </div>
+  </div>
+
+  <script src="node_modules/lodash/lodash.js"></script>
+  <script src="node_modules/angular/angular.js"></script>
+  <script src="node_modules/angular-simple-logger/dist/angular-simple-logger.js"></script>
+  <script src="node_modules/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="app/input.js"></script>
+  <script src="app/app.js"></script>
+</body>
+</html>
