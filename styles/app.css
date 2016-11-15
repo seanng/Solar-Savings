@@ -1,5 +1,30 @@
+.angular-google-map {
+  height: 100%;
+}
 .angular-google-map-container {
-  height: 400px;
+  height: 100%;
+}
+.column {
+  padding: 0px;
+  height: 100vh;
+  border: 1px solid black;
+}
+
+.left-panel-map {
+  height: 60%;
+}
+
+.left-panel-input {
+  border-top: 1px solid black;
+  height: 40%;
+}
+
+.left-panel-input > form {
+  padding: 15px;
+}
+
+.left-panel-input > form > button{
+  text-align: right;
 }
 
 #searchbox {

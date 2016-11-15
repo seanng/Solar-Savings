@@ -8,7 +8,7 @@
 </head>
 <body ng-app="aurora">
   <div class="container-fluid">
-    <div class="col-sm-5 left-panel" ng-controller="InputCtrl as input">
+    <div class="col-sm-4 column left-panel" ng-controller="InputCtrl as input">
       <div class="left-panel-map">
         <script id="searchbox.tpl.html" type="text/ng-template">
           <input id="searchbox" type="text" placeholder="Search Box">
@@ -18,34 +18,36 @@
           zoom='map.zoom'
           draggable='true'
           events='map.events'>
-
             <ui-gmap-search-box
               template='searchbox.template'
-              events='searchbox.events'>
-            </ui-gmap-search-box>
-<!--
-            <ui-gmap-polygon
-              clickable='true'
-              visible='true'
-              editable='true'
-              fill='polygonConfig.fill'
-              events='polygonConfig.events'>
-            </ui-gmap-polygon> -->
-
+              events='searchbox.events' />
             <ui-gmap-drawing-manager
               options='drawingManager.options'
               control='drawingManager.control'
-              events='drawingManager.events'>
-            </ui-gmap-drawing-manager>
-
+              events='drawingManager.events'/>
         </ui-gmap-google-map>
       </div>
-      <div class="left-panel-input"></div>
+      <div class="left-panel-input">
+        <form>
+          <div class="form-group">
+            <label for="roofPitch">Roof Pitch</label>
+            <input type="number" class="form-control" id="roofPitch">
+          </div>
+          <div class="form-group">
+            <label for="azimuth">Azimuth</label>
+            <input type="number" class="form-control" id="azimuth">
+          </div>
+          <button type="submit" class="btn btn-default">Calculate</button>
+        </form>
+      </div>
     </div>
-    <div class="col-sm-7 right-panel">
-      <div class="right-panel-performance"></div>
-      <div class="right-panel-financial"></div>
+    <div class="col-sm-4 column middle-panel">
+      Performance
     </div>
+    <div class="col-sm-4 column right-panel">
+      Financial
+    </div>
+
   </div>
 
   <script src="node_modules/lodash/lodash.js"></script>

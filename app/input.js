@@ -16,7 +16,6 @@
       places_changed: function(searchBox) {
         let place = searchBox.getPlaces();
         if (!place || place === 'undefined' || place.length === 0) {
-          console.log('empty.')
           return;
         }
         $scope.map = {
@@ -42,8 +41,6 @@
       events: searchEvents
     };
 
-    // uiGmapGoogleMapApi is a promise.
-    // The "then" callback function provides the google.maps object.
     uiGmapGoogleMapApi.then(function(maps) {
       // Drawing Manager
       $scope.drawingManager = {
@@ -59,10 +56,13 @@
           polygoncomplete: function(dm, name, scope, objs) {
             var polygon = objs[0];
             var area = maps.geometry.spherical.computeArea(polygon.getPath());
+
           }
         }
       };
     });
+
+
   }
 
 })();
