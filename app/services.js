@@ -5,8 +5,6 @@
   .factory('httpMethods', function($http, $rootScope){
     return {
       getPerformance: function(roofs, cb){
-        let totalWattage = roofs.reduce((a,b)=>a.totalWattage+b.totalWattage);
-        console.log('totalWattage', totalWattage);
         let results = [];
         roofs.forEach(roof=>{
           console.log('roof', roof);
@@ -16,7 +14,8 @@
             params: {
               format: 'json',
               api_key: 'cLRJmAW9G9j0BC6UCdwKD2mBlClrV8eiZcBRrnNt',
-              system_capacity: roof.totalWattage,
+              // kiloWattage
+              system_capacity: (roof.totalWattage / 1000),
               module_type: 0,
               losses: "0",
               array_type: "1",
@@ -29,7 +28,6 @@
             console.log('succ',resp);
             results.push(resp.data.outputs);
             if (results.length === roofs.length) {
-              console.log('results', results);
               return cb(results);
             }
           }, function errorCB(resp){

@@ -59,25 +59,33 @@
     </div>
     <div class="col-sm-4 column right-panel">
       <h2>Financial</h2>
-      <div class="panel">
+      <div class="panel" ng-show="financials.display">
         <h4>System Cost</h4>
         <table class="table table-condensed">
           <tbody>
             <tr>
               <td>Total system size</td>
-              <td>totalsystemsize</td>
+              <td>{{financials.totalWattage/1000 | number : 0}} KW</td>
             </tr>
             <tr>
               <td>Total cost ($3.50/W)</td>
-              <td>totalsystemsize * 3.5</td>
+              <td>{{financials.totalWattage * 3.5 | currency : $ : 0}}</td>
             </tr>
           </tbody>
         </table>
       </div>
-      <div class="panel">
+      <div class="panel" ng-show="financials.display">
         <h4>Energy Savings</h4>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <td>Annual Energy Savings</td>
+              <td>{{0.14 * financials.annualAC | currency : $ : 0}}</td>
+            </tr>
+          </tbody>
+        </table>
       </div>
-      <div class="panel">
+      <div class="panel" ng-show="financials.display">
         <h4>Cumulative Cashflow and Payback Period</h4>
       </div>
     </div>
@@ -88,6 +96,8 @@
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-simple-logger/dist/angular-simple-logger.js"></script>
   <script src="node_modules/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="node_modules/chart.js/dist/Chart.js"></script>
+
   <script src="app/services.js"></script>
   <script src="app/input.js"></script>
   <script src="app/app.js"></script>

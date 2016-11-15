@@ -1,6 +1,6 @@
 /* jshint esversion: 6 */
 (function() {
-  angular.module('aurora.input', ['uiGmapgoogle-maps'])
+  angular.module('aurora.input', ['uiGmapgoogle-maps', 'chart.js'])
 
   .config(function(uiGmapGoogleMapApiProvider){
     uiGmapGoogleMapApiProvider.configure({
@@ -43,6 +43,10 @@
 
     $scope.roofs = [];
 
+    $scope.financials = {
+      display: false
+    };
+
     $scope.calculate = function() {
       let hasAzimuth = $scope.roofs.every((e)=>e.azimuth !== undefined);
       let hasRoofPitch = $scope.roofs.every((e)=>e.roofPitch !== undefined);
@@ -56,10 +60,15 @@
         roof.latitude = $scope.map.center.latitude;
         return roof;
       });
-      return httpMethods.getPerformance(roofs, function(results){
+      console.log('roofs', roofs);
+
+      httpMethods.getPerformance(roofs, function(results){
+        console.log('woooohoooo', results, roofs);
         $scope.calculation = results;
+        $scope.financials.totalWattage = roofs.reduce((a, b)=>{return a + b.totalWattage}, 0);
+        $scope.financials.annualAC = results.reduce((a, b)=>{return a + b.ac_annual}, 0);
+        $scope.financials.display = true;
       });
-      console.log($scope.calculation);
     };
 
     uiGmapGoogleMapApi.then(function(maps) {

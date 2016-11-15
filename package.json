@@ -10,7 +10,9 @@
   "license": "ISC",
   "dependencies": {
     "angular": "^1.5.8",
+    "angular-chart.js": "^1.0.3",
     "angular-google-maps": "^2.4.0",
-    "bootstrap": "^3.3.7"
+    "bootstrap": "^3.3.7",
+    "chart.js": "^2.4.0"
   }
 }
