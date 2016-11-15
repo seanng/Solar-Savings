@@ -10,11 +10,11 @@
   <link rel="stylesheet" href="styles/app.css">
 </head>
 <body ng-app="aurora">
-  <div class="container-fluid" ng-controller="InputCtrl as input">
+  <div class="container-fluid">
 
     <!-- Left-Panel: Step One  -->
 
-    <div class="col-sm-4 column left-panel">
+    <div class="col-sm-4 column left-panel" ng-controller="MapCtrl">
       <h2>1. Draw your roof!</h2>
       <div class="left-panel-map">
         <script id="searchbox.tpl.html" type="text/ng-template">
@@ -37,66 +37,67 @@
     </div>
 
     <!-- Middle-Panel: Step Two -->
-
-    <div class="col-sm-4 column middle-panel">
-      <h2>2. Input Data</h2>
-      <div ng-hide="roofs.length">
-        <p>
-          Input some information about your roof after drawing it!
-        </p>
-      </div>
-      <form ng-submit='calculate()'>
-        <div ng-repeat='roof in roofs track by $index'>
-          <div class="form-group">
-            <label for="roofPitch">Roof Pitch</label>
-            <input type="number" class="form-control" id="roofPitch" ng-model="roof.roofPitch">
-          </div>
-          <div class="form-group">
-            <label for="azimuth">Azimuth</label>
-            <input type="number" class="form-control" id="azimuth" ng-model="roof.azimuth">
-          </div>
-          <div class="form-group">
-            <label for="unitWattage">Wattage / sq.m</label>
-            <input type="number" class="form-control" placeholder="(optional)" id="unitWattage" ng-model="roof.unitWattage">
-          </div>
+    <div ng-controller="CalculationCtrl">
+      <div class="col-sm-4 column middle-panel">
+        <h2>2. Input Data</h2>
+        <div ng-hide="roofs.length">
+          <p>
+            Input some information about your roof after drawing it!
+          </p>
         </div>
-        <button type="submit" class="btn btn-sm btn-default" ng-show="roofs.length">Calculate</button>
-      </form>
-    </div>
-
-    <!-- Right-Panel: Step Three -->
-
-    <div class="col-sm-4 column right-panel">
-      <h2>3. Financial Output</h2>
-      <div class="panel" ng-show="financials.display">
-        <h4>System Cost</h4>
-        <table class="table table-condensed">
-          <tbody>
-            <tr>
-              <td>Total system size</td>
-              <td>{{financials.totalWattage/1000 | number : 0}} KW</td>
-            </tr>
-            <tr>
-              <td>Total cost ($3.50/W)</td>
-              <td>{{financials.totalWattage * 3.5 | currency : $ : 0}}</td>
-            </tr>
-          </tbody>
-        </table>
+        <form ng-submit='calculate()'>
+          <div ng-repeat='roof in roofs track by $index'>
+            <div class="form-group">
+              <label for="roofPitch">Roof Pitch</label>
+              <input type="number" class="form-control" id="roofPitch" ng-model="roof.roofPitch">
+            </div>
+            <div class="form-group">
+              <label for="azimuth">Azimuth</label>
+              <input type="number" class="form-control" id="azimuth" ng-model="roof.azimuth">
+            </div>
+            <div class="form-group">
+              <label for="unitWattage">Wattage / sq.m</label>
+              <input type="number" class="form-control" placeholder="(optional)" id="unitWattage" ng-model="roof.unitWattage">
+            </div>
+          </div>
+          <button type="submit" class="btn btn-sm btn-default" ng-show="roofs.length">Calculate</button>
+        </form>
       </div>
-      <div class="panel" ng-show="financials.display">
-        <h4>Monthly Energy Savings</h4>
-        <table class="table table-condensed">
-          <tbody>
-            <tr>
-              <td>Annual Energy Savings</td>
-              <td>{{0.14 * financials.annualAC | currency : $ : 0}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="panel" ng-show="financials.display">
-        <h4>Cumulative Cashflow and Payback Period</h4>
-        <canvas id="bar" class="chart chart-bar" chart-data="financials.chart.cashflowData" chart-labels="financials.chart.labels" />
+
+      <!-- Right-Panel: Step Three -->
+
+      <div class="col-sm-4 column right-panel">
+        <h2>3. Financial Output</h2>
+        <div class="panel" ng-show="financials.display">
+          <h4>System Cost</h4>
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td>Total system size</td>
+                <td>{{financials.totalWattage/1000 | number : 0}} KW</td>
+              </tr>
+              <tr>
+                <td>Total cost ($3.50/W)</td>
+                <td>{{financials.totalWattage * 3.5 | currency : $ : 0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" ng-show="financials.display">
+          <h4>Monthly Energy Savings</h4>
+          <table class="table table-condensed">
+            <tbody>
+              <tr>
+                <td>Annual Energy Savings</td>
+                <td>{{0.14 * financials.annualAC | currency : $ : 0}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="panel" ng-show="financials.display">
+          <h4>Cumulative Cashflow and Payback Period</h4>
+          <canvas id="bar" class="chart chart-bar" chart-data="financials.chart.cashflowData" chart-labels="financials.chart.labels" />
+        </div>
       </div>
     </div>
 
@@ -111,7 +112,8 @@
   <script src="node_modules/chart.js/dist/Chart.js"></script>
   <script src="node_modules/angular-chart.js/dist/angular-chart.js"></script>
   <script src="app/services.js"></script>
-  <script src="app/input.js"></script>
+  <script src="app/map.js"></script>
+  <script src="app/calculation.js"></script>
   <script src="app/app.js"></script>
 </body>
 </html>

@@ -2,12 +2,11 @@
 (function() {
   angular.module('aurora.services', [
   ])
-  .factory('httpMethods', function($http, $rootScope){
+  .factory('http', function($http, $rootScope){
     return {
       getPerformance: function(roofs, cb){
         let results = [];
         roofs.forEach(roof=>{
-          console.log('roof', roof);
           $http({
             method: 'GET',
             url: 'https://developer.nrel.gov/api/pvwatts/v5',
@@ -28,7 +27,7 @@
             console.log('succ',resp);
             results.push(resp.data.outputs);
             if (results.length === roofs.length) {
-              return cb(results);
+              return cb(results, roofs);
             }
           }, function errorCB(resp){
             console.log('err', resp);
