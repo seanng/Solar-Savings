@@ -7,8 +7,9 @@
   <link rel="stylesheet" href="styles/app.css">
 </head>
 <body ng-app="aurora">
-  <div class="container-fluid">
-    <div class="col-sm-4 column left-panel" ng-controller="InputCtrl as input">
+  <div class="container-fluid" ng-controller="InputCtrl as input">
+    <div class="col-sm-4 column left-panel">
+      <h2>Draw your roof!</h2>
       <div class="left-panel-map">
         <script id="searchbox.tpl.html" type="text/ng-template">
           <input id="searchbox" type="text" placeholder="Search Box">
@@ -27,31 +28,58 @@
               events='drawingManager.events'/>
         </ui-gmap-google-map>
       </div>
-      <div class="left-panel-input">
-        <form ng-submit='calculate()'>
-          <div ng-repeat='roof in roofs track by $index'>
-            <div class="form-group">
-              <label for="roofPitch">Roof Pitch</label>
-              <input type="number" class="form-control" id="roofPitch" ng-model="roof.roofPitch">
-            </div>
-            <div class="form-group">
-              <label for="azimuth">Azimuth</label>
-              <input type="number" class="form-control" id="azimuth" ng-model="roof.azimuth">
-            </div>
-            <div class="form-group">
-              <label for="unitWattage">Wattage / sq.m</label>
-              <input type="number" class="form-control" placeholder="(optional)" id="unitWattage" ng-model="roof.unitWattage">
-            </div>
-          </div>
-          <button type="submit" class="btn btn-sm btn-default" ng-show="roofs.length">Calculate</button>
-        </form>
-      </div>
     </div>
     <div class="col-sm-4 column middle-panel">
-      Performance
+      <h2>Performance</h2>
+      <div ng-hide="roofs.length">
+        <p>
+          You will be able to input some roof information as soon as you draw a polygon
+        </p>
+      </div>
+      <form ng-submit='calculate()'>
+        <div ng-repeat='roof in roofs track by $index'>
+          <div class="form-group">
+            <label for="roofPitch">Roof Pitch</label>
+            <input type="number" class="form-control" id="roofPitch" ng-model="roof.roofPitch">
+          </div>
+          <div class="form-group">
+            <label for="azimuth">Azimuth</label>
+            <input type="number" class="form-control" id="azimuth" ng-model="roof.azimuth">
+          </div>
+          <div class="form-group">
+            <label for="unitWattage">Wattage / sq.m</label>
+            <input type="number" class="form-control" placeholder="(optional)" id="unitWattage" ng-model="roof.unitWattage">
+          </div>
+        </div>
+        <button type="submit" class="btn btn-sm btn-default" ng-show="roofs.length">Calculate</button>
+      </form>
+      <div class="performanceOutput" ng-show="roofs.length">
+        {{calculation}}
+      </div>
     </div>
     <div class="col-sm-4 column right-panel">
-      Financial
+      <h2>Financial</h2>
+      <div class="panel">
+        <h4>System Cost</h4>
+        <table class="table table-condensed">
+          <tbody>
+            <tr>
+              <td>Total system size</td>
+              <td>totalsystemsize</td>
+            </tr>
+            <tr>
+              <td>Total cost ($3.50/W)</td>
+              <td>totalsystemsize * 3.5</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <div class="panel">
+        <h4>Energy Savings</h4>
+      </div>
+      <div class="panel">
+        <h4>Cumulative Cashflow and Payback Period</h4>
+      </div>
     </div>
 
   </div>

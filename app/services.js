@@ -2,11 +2,12 @@
 (function() {
   angular.module('aurora.services', [
   ])
-  .factory('httpMethods', function($http){
+  .factory('httpMethods', function($http, $rootScope){
     return {
-      getPerformance: function(roofs){
+      getPerformance: function(roofs, cb){
         let totalWattage = roofs.reduce((a,b)=>a.totalWattage+b.totalWattage);
         console.log('totalWattage', totalWattage);
+        let results = [];
         roofs.forEach(roof=>{
           console.log('roof', roof);
           $http({
@@ -26,8 +27,14 @@
             }
           }).then(function successCB(resp) {
             console.log('succ',resp);
+            results.push(resp.data.outputs);
+            if (results.length === roofs.length) {
+              console.log('results', results);
+              return cb(results);
+            }
           }, function errorCB(resp){
             console.log('err', resp);
+            return resp;
           });
         });
       }

@@ -1,3 +1,6 @@
+h2 {
+  text-align: center;
+}
 .angular-google-map {
   height: 100%;
 }
@@ -5,22 +8,18 @@
   height: 100%;
 }
 .column {
-  padding: 0px;
   height: 100vh;
   border: 1px solid black;
+  overflow: scroll;
+}
+
+.left-panel {
+  padding: 0px;
 }
 
 .left-panel-map {
-  height: 40%;
+  height: 80%;
 }
-
-.left-panel-input {
-  border-top: 1px solid black;
-  height: 60%;
-  overflow: scroll;
-  font-size: 12px;
-}
-
 
 .left-panel-input > form {
   padding: 15px;
@@ -28,6 +27,20 @@
 
 .left-panel-input > form > button{
   text-align: right;
+}
+
+.middle-panel {
+  font-size: 12px;
+}
+
+.middle-panel > div > p {
+  font-size: 16px;
+}
+
+.performanceOutput {
+  margin-top: 15px;
+  height: 25%;
+  border-top: 1px dotted black;
 }
 
 #searchbox {

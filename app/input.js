@@ -30,7 +30,7 @@
 
     $scope.map = {
       center: { latitude: 45, longitude: -73 },
-      zoom: 8,
+      zoom: 12,
       events: function(e) {
         console.log(e);
       }
@@ -56,7 +56,10 @@
         roof.latitude = $scope.map.center.latitude;
         return roof;
       });
-      return httpMethods.getPerformance(roofs);
+      return httpMethods.getPerformance(roofs, function(results){
+        $scope.calculation = results;
+      });
+      console.log($scope.calculation);
     };
 
     uiGmapGoogleMapApi.then(function(maps) {
