@@ -11,13 +11,16 @@
 }
 
 .left-panel-map {
-  height: 60%;
+  height: 40%;
 }
 
 .left-panel-input {
   border-top: 1px solid black;
-  height: 40%;
+  height: 60%;
+  overflow: scroll;
+  font-size: 12px;
 }
+
 
 .left-panel-input > form {
   padding: 15px;

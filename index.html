@@ -28,16 +28,22 @@
         </ui-gmap-google-map>
       </div>
       <div class="left-panel-input">
-        <form>
-          <div class="form-group">
-            <label for="roofPitch">Roof Pitch</label>
-            <input type="number" class="form-control" id="roofPitch">
+        <form ng-submit='calculate()'>
+          <div ng-repeat='roof in roofs track by $index'>
+            <div class="form-group">
+              <label for="roofPitch">Roof Pitch</label>
+              <input type="number" class="form-control" id="roofPitch" ng-model="roof.roofPitch">
+            </div>
+            <div class="form-group">
+              <label for="azimuth">Azimuth</label>
+              <input type="number" class="form-control" id="azimuth" ng-model="roof.azimuth">
+            </div>
+            <div class="form-group">
+              <label for="unitWattage">Wattage / sq.m</label>
+              <input type="number" class="form-control" placeholder="(optional)" id="unitWattage" ng-model="roof.unitWattage">
+            </div>
           </div>
-          <div class="form-group">
-            <label for="azimuth">Azimuth</label>
-            <input type="number" class="form-control" id="azimuth">
-          </div>
-          <button type="submit" class="btn btn-default">Calculate</button>
+          <button type="submit" class="btn btn-sm btn-default" ng-show="roofs.length">Calculate</button>
         </form>
       </div>
     </div>
@@ -54,6 +60,7 @@
   <script src="node_modules/angular/angular.js"></script>
   <script src="node_modules/angular-simple-logger/dist/angular-simple-logger.js"></script>
   <script src="node_modules/angular-google-maps/dist/angular-google-maps.js"></script>
+  <script src="app/services.js"></script>
   <script src="app/input.js"></script>
   <script src="app/app.js"></script>
 </body>

@@ -11,7 +11,7 @@
 
   .controller('InputCtrl', InputCtrl);
 
-  function InputCtrl ($scope, $log, uiGmapGoogleMapApi) {
+  function InputCtrl ($scope, $log, uiGmapGoogleMapApi, httpMethods) {
     const searchEvents = {
       places_changed: function(searchBox) {
         let place = searchBox.getPlaces();
@@ -41,6 +41,24 @@
       events: searchEvents
     };
 
+    $scope.roofs = [];
+
+    $scope.calculate = function() {
+      let hasAzimuth = $scope.roofs.every((e)=>e.azimuth !== undefined);
+      let hasRoofPitch = $scope.roofs.every((e)=>e.roofPitch !== undefined);
+      if (!hasAzimuth || !hasRoofPitch) {
+        console.log('azimuth and roofpatch are required.');
+        return;
+      }
+      let roofs = $scope.roofs.map((roof)=>{
+        roof.totalWattage = roof.area * (roof.unitWattage || 222);
+        roof.longitude = $scope.map.center.longitude;
+        roof.latitude = $scope.map.center.latitude;
+        return roof;
+      });
+      return httpMethods.getPerformance(roofs);
+    };
+
     uiGmapGoogleMapApi.then(function(maps) {
       // Drawing Manager
       $scope.drawingManager = {
@@ -55,14 +73,13 @@
         events: {
           polygoncomplete: function(dm, name, scope, objs) {
             var polygon = objs[0];
-            var area = maps.geometry.spherical.computeArea(polygon.getPath());
-
+            $scope.roofs.push({
+              area: maps.geometry.spherical.computeArea(polygon.getPath())
+            });
           }
         }
       };
     });
-
-
   }
 
 })();
